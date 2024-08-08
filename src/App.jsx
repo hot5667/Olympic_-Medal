@@ -8,28 +8,30 @@ function App() {
         <div className="maincontainer">
           <h1>2024 파리 올림픽</h1>
           <form className="input-group">
-            <div className="country-input-filed">
+            <div className="input-filed">
               <label>국가명</label>
               <input type="text" name="countryname" id="countryname" placeholder="국가 입력" />
             </div>
-            <div className="gold-input-filed">
+            <div className="input-filed">
               <label>금메달</label>
               <input type="number" name="goldMedalNumber" id="goldMedalNumber" placeholder="금메달 갯수를 입력해주세요" />
             </div>
-            <div className="silver-input-filed">
+            <div className="input-filed">
               <label>은메달</label>
               <input type="number" name="silverMedalNumber" id="silvergoldMedalNumber" placeholder="은메달 갯수를 입력해주세요" />
             </div>
-            <div className="bronze-input-filed">
+            <div className="input-filed">
               <label>동메달</label>
               <input type="number" name="bronzeMedalNumber" id="bronzegoldMedalNumber" placeholder="동메달 갯수를 입력해주세요" />
             </div>
-            <div className="bronze-input-filed">
+            <div className="input-filed">
               <label>동메달</label>
               <input type="number" name="bronzeMedalNumber" id="bronzegoldMedalNumber" placeholder="동메달 갯수를 입력해주세요" />
             </div>
-            <button className="inputcontainer">국가 추가</button>
-            <button className="inputcontainer">업데이트</button>
+            <div className="button-group">
+              <button type="submit">국가 추가</button>
+              <button type="button">업데이트</button>
+            </div>
           </form>
         </div>
       </main>
