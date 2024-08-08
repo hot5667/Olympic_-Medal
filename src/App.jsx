@@ -74,6 +74,12 @@ function App() {
     });
   };
 
+  const handleDelete = (id) => {
+    setCountries((prevCountries) =>
+      prevCountries.filter((country) => country.id !== id)
+    );
+  };
+
   return (
     <>
       <main>
@@ -156,7 +162,9 @@ function App() {
                       <td>{country.silverMedalNumber}</td>
                       <td>{country.bronzeMedalNumber}</td>
                       <td>
-                        <button>삭제</button>
+                        <button onClick={() => handleDelete(country.id)}>
+                          삭제
+                        </button>
                       </td>
                     </tr>
                   ))}
