@@ -1,7 +1,26 @@
 .maincontainer {
      background-color: green;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;;
+    max-width: 1000px;
+    padding: 20px;
+    box-shadow: 0 4px 8px #0000001a;
+    border-radius: 8px;
+    color: black;
+}
+h1{
+     text-align: center;
+     color : #003580;
+     margin: 20px;
+     font-size: 2rem;
+}
+.input-group {
+     display: flex;
+     justify-content: space-between;
+     gap: 8px;
+     align-items: flex-end;
+}
+
+.country-input-filed{
+     display: flex;
+     flex-direction: column;
+     align-items: center;;
 }
