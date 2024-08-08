@@ -65,3 +65,39 @@ button {
      font-weight: 700;
      align-items: center;
 }
+
+table {
+     width: 100%;
+     border-collapse: collapse;
+     margin-top: 20px;
+     background-color: #e6e6fa;
+     border-radius: 8px;
+     overflow: hidden;
+}
+
+th  {
+     background-color: #003580;
+     color: #fff;
+     font-weight: 700;
+    
+}
+
+td {
+     vertical-align: middle;
+     color: #333;
+}
+
+th, td {
+      padding: 12px;
+     text-align: center;
+     border-bottom: 1px solid #ccc;
+}
+
+td button {
+     background-color: red;
+     border: none;
+     padding: 5px 10px;
+     color: #fff;
+     border-radius: 4px;
+     cursor: pointer;
+}
