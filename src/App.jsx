@@ -20,46 +20,20 @@ function App() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    const existingCountry = countries.find(
+      (country) => country.countryname.toLowerCase() === formData.countryname.toLowerCase()
+    );
+
+    if (existingCountry) {
+      alert("동일한 데이터가 있습니다!");
+      return;
+    }
+
     setCountries((prevCountries) => {
-      const existingCountry = prevCountries.find(
-        (country) => country.countryname === formData.countryname
-      );
-
-      if (existingCountry) {
-        return prevCountries
-          .map((country) =>
-            country.countryname === formData.countryname
-              ? { ...country, ...formData }
-              : country
-          )
-          .sort((a, b) => b.goldMedalNumber - a.goldMedalNumber);
-      } else {
-        const updatedCountries = [
-          ...prevCountries,
-          { ...formData, id: Date.now() },
-        ];
-
-        return updatedCountries.sort(
-          (a, b) => b.goldMedalNumber - a.goldMedalNumber
-        );
-      }
-    });
-
-    setFormData({
-      countryname: "",
-      goldMedalNumber: 0,
-      silverMedalNumber: 0,
-      bronzeMedalNumber: 0,
-    });
-  };
-
-  const handleUpdate = () => {
-    setCountries((prevCountries) => {
-      const updatedCountries = prevCountries.map((country) =>
-        country.countryname === formData.countryname
-          ? { ...country, ...formData }
-          : country
-      );
+      const updatedCountries = [
+        ...prevCountries,
+        { ...formData, id: Date.now() },
+      ];
 
       return updatedCountries.sort(
         (a, b) => b.goldMedalNumber - a.goldMedalNumber
@@ -71,6 +45,29 @@ function App() {
       goldMedalNumber: 0,
       silverMedalNumber: 0,
       bronzeMedalNumber: 0,
+    });
+  };
+
+  const handleUpdate = () => {
+    const existingCountry = countries.find(
+      (country) => country.countryname.toLowerCase() === formData.countryname.toLowerCase()
+    );
+
+    if (!existingCountry) {
+      alert("업데이트할 국가가 없습니다. 먼저 국가를 추가하세요.");
+      return;
+    }
+
+    setCountries((prevCountries) => {
+      const updatedCountries = prevCountries.map((country) =>
+        country.countryname === formData.countryname
+          ? { ...country, ...formData }
+          : country
+      );
+
+      return updatedCountries.sort(
+        (a, b) => b.goldMedalNumber - a.goldMedalNumber
+      );
     });
   };
 
