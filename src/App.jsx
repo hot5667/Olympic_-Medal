@@ -11,9 +11,17 @@ function App() {
   const [countries, setCountries] = useState([]);
 
   const handleChange = (e) => {
+    const { name, value } = e.target;
+
+    let processedValue = value;
+
+    if (name !== "countryname") {
+      processedValue = Math.max(0, parseInt(value, 10) || 0).toString();
+    }
+
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value,
+      [name]: processedValue,
     });
   };
 
