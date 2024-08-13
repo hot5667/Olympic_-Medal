@@ -1,5 +1,39 @@
-import "./main.css";
-import { useState } from "react";
+import React, { useState } from "react";
+import styled, { createGlobalStyle } from "styled-components";
+import FormComponent from "./FormComponent";
+import CountryTable from "./CountryTable";
+
+const GlobalStyle = createGlobalStyle`
+  body {
+    background-color: #f4f4f9;
+    color: black;
+    margin: 0;
+    padding: 0;
+  }
+`;
+//f4f4f9
+const Main = styled.main`
+  display: flex;
+  justify-content: center;
+  margin-top: 2%;
+`;
+
+const MainContainer = styled.div`
+  background-color: #fff;
+  max-width: 1200px;
+  min-width: 800px;
+  padding: 20px;
+  box-shadow: 0 4px 8px #0000001a;
+  border-radius: 8px;
+  color: black;
+`;
+
+const Heading = styled.h1`
+  text-align: center;
+  color: #003580;
+  margin: 20px;
+  font-size: 2rem;
+`;
 
 function App() {
   const [formData, setFormData] = useState({
@@ -29,7 +63,8 @@ function App() {
     e.preventDefault();
 
     const existingCountry = countries.find(
-      (country) => country.countryname.toLowerCase() === formData.countryname.toLowerCase()
+      (country) =>
+        country.countryname.toLowerCase() === formData.countryname.toLowerCase()
     );
 
     if (existingCountry) {
@@ -58,7 +93,8 @@ function App() {
 
   const handleUpdate = () => {
     const existingCountry = countries.find(
-      (country) => country.countryname.toLowerCase() === formData.countryname.toLowerCase()
+      (country) =>
+        country.countryname.toLowerCase() === formData.countryname.toLowerCase()
     );
 
     if (!existingCountry) {
@@ -87,98 +123,19 @@ function App() {
 
   return (
     <>
-      <main>
-        <div className="maincontainer">
-          <h1>2024 파리 올림픽</h1>
-          <form className="input-group" onSubmit={handleSubmit}>
-            <div className="input-filed">
-              <label>국가명</label>
-              <input
-                type="text"
-                name="countryname"
-                id="countryname"
-                placeholder="국가 입력"
-                value={formData.countryname}
-                onChange={handleChange}
-                required
-              />
-            </div>
-            <div className="input-filed">
-              <label>금메달</label>
-              <input
-                type="number"
-                name="goldMedalNumber"
-                id="goldMedalNumber"
-                placeholder="금메달 갯수를 입력해주세요"
-                value={formData.goldMedalNumber}
-                onChange={handleChange}
-                required
-              />
-            </div>
-            <div className="input-filed">
-              <label>은메달</label>
-              <input
-                type="number"
-                name="silverMedalNumber"
-                id="silvergoldMedalNumber"
-                placeholder="은메달 갯수를 입력해주세요"
-                value={formData.silverMedalNumber}
-                onChange={handleChange}
-                required
-              />
-            </div>
-            <div className="input-filed">
-              <label>동메달</label>
-              <input
-                type="number"
-                name="bronzeMedalNumber"
-                id="bronzegoldMedalNumber"
-                placeholder="동메달 갯수를 입력해주세요"
-                value={formData.bronzeMedalNumber}
-                onChange={handleChange}
-                required
-              />
-            </div>
-            <div className="button-group">
-              <button type="submit">국가 추가</button>
-              <button type="button" onClick={handleUpdate}>업데이트</button>
-            </div>
-          </form>
-
-          <div>
-            {countries.length === 0 ? (
-              <p>아직 추가된 국가가 없습니다. 메달을 추적하세요!</p>
-            ) : (
-              <table className="country-table">
-                <thead>
-                  <tr>
-                    <th>국가명</th>
-                    <th>금메달</th>
-                    <th>은메달</th>
-                    <th>동메달</th>
-                    <th>액션</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {countries.map((country) => (
-                    <tr key={country.id}>
-                      <td>{country.countryname}</td>
-                      <td>{country.goldMedalNumber}</td>
-                      <td>{country.silverMedalNumber}</td>
-                      <td>{country.bronzeMedalNumber}</td>
-                      <td>
-                        <button onClick={() => handleDelete(country.id)}>
-                          삭제
-                        </button>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            )}
-          </div>
-        </div>
-      </main>
+      <GlobalStyle />
+      <Main>
+        <MainContainer>
+          <Heading>2024 파리 올림픽</Heading>
+          <FormComponent
+            formData={formData}
+            handleChange={handleChange}
+            handleSubmit={handleSubmit}
+            handleUpdate={handleUpdate}
+          />
+          <CountryTable countries={countries} handleDelete={handleDelete} />
+        </MainContainer>
+      </Main>
     </>
   );
 }
