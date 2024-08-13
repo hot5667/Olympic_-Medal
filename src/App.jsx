@@ -53,6 +53,15 @@ function App() {
     });
   };
 
+  const resetFormData = () => {
+    setFormData({
+      countryname: "",
+      goldMedalNumber: 0,
+      silverMedalNumber: 0,
+      bronzeMedalNumber: 0,
+    });
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -66,17 +75,12 @@ function App() {
       return;
     }
 
-    setCountries((prevCountries) => [
-      ...prevCountries,
-      { ...formData, id: Date.now() },
-    ].toSorted((a, b) => b.goldMedalNumber - a.goldMedalNumber));
-
-    setFormData({
-      countryname: "",
-      goldMedalNumber: 0,
-      silverMedalNumber: 0,
-      bronzeMedalNumber: 0,
+    setCountries((prevCountries) => {
+      const newCountries = [...prevCountries, { ...formData, id: Date.now() }];
+      return newCountries.sort((a, b) => b.goldMedalNumber - a.goldMedalNumber);
     });
+
+    resetFormData();
   };
 
   const handleUpdate = () => {
@@ -93,12 +97,14 @@ function App() {
     setCountries((prevCountries) =>
       prevCountries
         .map((country) =>
-          country.countryname === formData.countryname
+          country.countryname.toLowerCase() === formData.countryname.toLowerCase()
             ? { ...country, ...formData }
             : country
         )
-        .toSorted((a, b) => b.goldMedalNumber - a.goldMedalNumber)
+        .sort((a, b) => b.goldMedalNumber - a.goldMedalNumber)
     );
+
+    resetFormData();
   };
 
   const handleDelete = (id) => {
