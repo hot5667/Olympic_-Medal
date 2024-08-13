@@ -11,7 +11,7 @@ const GlobalStyle = createGlobalStyle`
     padding: 0;
   }
 `;
-//f4f4f9
+
 const Main = styled.main`
   display: flex;
   justify-content: center;
@@ -42,20 +42,14 @@ function App() {
     silverMedalNumber: 0,
     bronzeMedalNumber: 0,
   });
+
   const [countries, setCountries] = useState([]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-
-    let processedValue = value;
-
-    if (name !== "countryname") {
-      processedValue = Math.max(0, parseInt(value, 10) || 0).toString();
-    }
-
     setFormData({
       ...formData,
-      [name]: processedValue,
+      [name]: name !== "countryname" ? Math.max(0, parseInt(value, 10) || 0) : value,
     });
   };
 
@@ -72,16 +66,10 @@ function App() {
       return;
     }
 
-    setCountries((prevCountries) => {
-      const updatedCountries = [
-        ...prevCountries,
-        { ...formData, id: Date.now() },
-      ];
-
-      return updatedCountries.sort(
-        (a, b) => b.goldMedalNumber - a.goldMedalNumber
-      );
-    });
+    setCountries((prevCountries) => [
+      ...prevCountries,
+      { ...formData, id: Date.now() },
+    ].toSorted((a, b) => b.goldMedalNumber - a.goldMedalNumber));
 
     setFormData({
       countryname: "",
@@ -102,17 +90,15 @@ function App() {
       return;
     }
 
-    setCountries((prevCountries) => {
-      const updatedCountries = prevCountries.map((country) =>
-        country.countryname === formData.countryname
-          ? { ...country, ...formData }
-          : country
-      );
-
-      return updatedCountries.sort(
-        (a, b) => b.goldMedalNumber - a.goldMedalNumber
-      );
-    });
+    setCountries((prevCountries) =>
+      prevCountries
+        .map((country) =>
+          country.countryname === formData.countryname
+            ? { ...country, ...formData }
+            : country
+        )
+        .toSorted((a, b) => b.goldMedalNumber - a.goldMedalNumber)
+    );
   };
 
   const handleDelete = (id) => {
