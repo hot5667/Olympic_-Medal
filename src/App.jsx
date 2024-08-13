@@ -75,10 +75,10 @@ function App() {
       return;
     }
 
-    setCountries((prevCountries) => {
-      const newCountries = [...prevCountries, { ...formData, id: Date.now() }];
-      return newCountries.sort((a, b) => b.goldMedalNumber - a.goldMedalNumber);
-    });
+    setCountries((prevCountries) => [
+      ...prevCountries,
+      { ...formData, id: Date.now() },
+    ].toSorted((a, b) => b.goldMedalNumber - a.goldMedalNumber));
 
     resetFormData();
   };
@@ -101,7 +101,7 @@ function App() {
             ? { ...country, ...formData }
             : country
         )
-        .sort((a, b) => b.goldMedalNumber - a.goldMedalNumber)
+        .toSorted((a, b) => b.goldMedalNumber - a.goldMedalNumber)
     );
 
     resetFormData();
